@@ -1,0 +1,256 @@
+@import "tailwindcss";
+
+/* ============================================================
+   DARKHACK — design tokens
+   Dark "ops console" hacker aesthetic. Single committed dark
+   theme (no light mode); everything is defined explicitly.
+   ============================================================ */
+
+:root {
+  --background: #05070a;
+  --surface: #0a0e14;
+  --surface-2: #0e141c;
+  --border: #1b2530;
+  --border-bright: #26333f;
+  --foreground: #d7e2dc;
+  --muted: #7f8f88;
+  --muted-2: #566159;
+
+  /* Neon accents */
+  --primary: #35ff9e; /* mint / neon green */
+  --primary-dim: #0f3d2a;
+  --cyan: #22d3ee;
+  --violet: #a78bfa;
+  --danger: #ff4d6d;
+  --amber: #fbbf24;
+
+  --glow-primary: 0 0 0.5px #35ff9e, 0 0 12px rgba(53, 255, 158, 0.45);
+  --glow-cyan: 0 0 0.5px #22d3ee, 0 0 12px rgba(34, 211, 238, 0.4);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-bright: var(--border-bright);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-2: var(--muted-2);
+
+  --color-primary: var(--primary);
+  --color-primary-dim: var(--primary-dim);
+  --color-cyan: var(--cyan);
+  --color-violet: var(--violet);
+  --color-danger: var(--danger);
+  --color-amber: var(--amber);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-jetbrains-mono);
+
+  --animate-blink: blink 1.1s steps(1) infinite;
+  --animate-scan: scan 6s linear infinite;
+  --animate-flicker: flicker 3.5s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-marquee: marquee 32s linear infinite;
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  93% {
+    opacity: 0.72;
+  }
+  94% {
+    opacity: 1;
+  }
+  96% {
+    opacity: 0.85;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    /* Layered grid + radial glows for the console backdrop */
+    background-image:
+      radial-gradient(
+        60rem 60rem at 80% -10%,
+        rgba(34, 211, 238, 0.06),
+        transparent 60%
+      ),
+      radial-gradient(
+        50rem 50rem at 0% 20%,
+        rgba(53, 255, 158, 0.06),
+        transparent 55%
+      ),
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size:
+      100% 100%,
+      100% 100%,
+      44px 44px,
+      44px 44px;
+    background-position:
+      center,
+      center,
+      center,
+      center;
+  }
+
+  ::selection {
+    background: rgba(53, 255, 158, 0.28);
+    color: #ffffff;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--surface);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-bright);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--muted-2);
+  }
+}
+
+@layer utilities {
+  .font-mono {
+    font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  }
+
+  .text-glow {
+    text-shadow: var(--glow-primary);
+  }
+  .text-glow-cyan {
+    text-shadow: var(--glow-cyan);
+  }
+
+  .box-glow {
+    box-shadow: var(--glow-primary);
+  }
+
+  /* Faint horizontal scanlines overlay */
+  .scanlines::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 2px,
+      rgba(0, 0, 0, 0.28) 3px,
+      transparent 4px
+    );
+    mix-blend-mode: overlay;
+    opacity: 0.5;
+  }
+
+  /* Animated gradient hairline border */
+  .hair-border {
+    position: relative;
+  }
+  .hair-border::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      120deg,
+      transparent 20%,
+      rgba(53, 255, 158, 0.55),
+      transparent 60%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .grid-fade {
+    -webkit-mask-image: radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      #000 40%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      #000 40%,
+      transparent 100%
+    );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
