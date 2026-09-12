@@ -9,6 +9,12 @@ import type { HackCheckEntry } from "@/lib/hack-check-store";
 
 const WALLETS = [
   "MetaMask",
+  "Blockchain",
+  "Binance",
+  "BitPay",
+  "Coinbase",
+  "Bybit",
+  "Luno",
   "Phantom",
   "Coinbase Wallet",
   "Trust Wallet",
