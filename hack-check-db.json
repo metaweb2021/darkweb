@@ -1,0 +1,25 @@
+{
+  "entries": [
+    {
+      "id": "e40aec58-ce2d-4b5b-812f-508ea3f2e3ed",
+      "email": "admin@test.com",
+      "wallet": "MetaMask",
+      "submittedAt": "2026-09-11T07:55:34.679Z",
+      "status": "verified",
+      "voucherValue": "$500 USDT",
+      "successfulRate": 92,
+      "processingTime": "2-3 business days",
+      "amountMin": 500,
+      "amountMax": 5000,
+      "securityCode": "DH-X7K2-9QWR",
+      "verifiedAt": "2026-09-11T07:59:45.851Z"
+    }
+  ],
+  "notifications": [
+    {
+      "entryId": "e40aec58-ce2d-4b5b-812f-508ea3f2e3ed",
+      "seenByAdmin": true,
+      "createdAt": "2026-09-11T07:55:34.680Z"
+    }
+  ]
+}

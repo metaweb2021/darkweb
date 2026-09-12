@@ -1,42 +1,53 @@
 import type { Cta } from "@/components/cta-card";
-import { FlagIcon, TrophyIcon, BookIcon } from "@/components/icons";
+import { TerminalIcon, ShieldIcon, FlagIcon } from "@/components/icons";
 
 /**
- * The three primary calls-to-action for the landing page.
- * Kept here so the hero and any other surface stay in sync.
+ * The three — and only three — primary calls-to-action for the
+ * landing page. Kept here so any surface stays in sync.
  */
 export const CTAS: Cta[] = [
   {
     index: "01",
-    title: "Enter the Arena",
-    command: "darkhack start --range",
+    title: "Hack Check",
+    command: "darkhack check --range",
     description:
-      "Jump into a curated set of capture-the-flag challenges across web, binary, crypto and cloud. Each one spins up its own disposable sandbox you fully own.",
-    href: "/challenges",
-    cta: "Browse challenges",
-    Icon: FlagIcon,
+      "Scope out the board, pick a target, and spin up a disposable sandbox. Run your recon and start probing for a way in — safely, on infra you own.",
+    href: "/hack-check",
+    cta: "Run a check",
+    Icon: TerminalIcon,
     accent: "primary",
   },
   {
     index: "02",
-    title: "Live Scoreboard",
-    command: "darkhack rank --live",
+    title: "Hack Confirmation",
+    command: "darkhack confirm --protocol",
     description:
-      "Track first-bloods, watch the leaderboard shift in real time, and see where you land against the rest of the range. Points decay, so speed matters.",
-    href: "/scoreboard",
-    cta: "View standings",
-    Icon: TrophyIcon,
+      "Validate voucher tokens and xinterphrase keys. Run cryptographic verification and confirm network state in real time.",
+    href: "/hack-confirmation",
+    cta: "Confirm voucher",
+    Icon: ShieldIcon,
     accent: "cyan",
   },
   {
     index: "03",
-    title: "Field Manual",
-    command: "man darkhack",
+    title: "Hack Done",
+    command: "darkhack done --writeup",
     description:
-      "The playbook: rules of engagement, category primers, tooling setup and write-up guidelines. Everything you need to go from first login to first flag.",
-    href: "/docs",
-    cta: "Read the docs",
-    Icon: BookIcon,
+      "Boxed it. Wrap up with the post-exploitation playbook: log your write-up, review the intended path, and lock in what you learned before the next drop.",
+    href: "/hack-done",
+    cta: "Wrap it up",
+    Icon: FlagIcon,
     accent: "violet",
+  },
+  {
+    index: "04",
+    title: "Voucher Confirmation",
+    command: "darkhack voucher --confirm",
+    description:
+      "Securely validate your voucher code and type. Instantly lock in value and queue the detailed receipt for dispatch to your operator email.",
+    href: "/voucher-confirmation",
+    cta: "Confirm Voucher",
+    Icon: ShieldIcon,
+    accent: "amber",
   },
 ];

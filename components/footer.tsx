@@ -4,7 +4,7 @@ export function Footer() {
   return (
     <footer className="border-t border-border bg-surface/40">
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-        <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+        {/* <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           <div className="max-w-sm">
             <span className="font-mono text-sm font-semibold">
               <span className="text-foreground">DARK</span>
@@ -20,9 +20,9 @@ export function Footer() {
             <FooterCol
               title="Platform"
               items={[
-                { href: "/challenges", label: "Challenges" },
-                { href: "/scoreboard", label: "Scoreboard" },
-                { href: "/docs", label: "Field Manual" },
+                { href: "/hack-check", label: "Hack Check" },
+                { href: "/scoreboard", label: "Hack Confirmation" },
+                { href: "/docs", label: "Hack Done" },
               ]}
             />
             <FooterCol
@@ -42,7 +42,7 @@ export function Footer() {
               ]}
             />
           </div>
-        </div>
+        </div> */}
 
         <div className="mt-10 flex flex-col gap-3 border-t border-border pt-6 font-mono text-xs text-muted-2 sm:flex-row sm:items-center sm:justify-between">
           <span>© {new Date().getFullYear()} DARKHACK — training use only.</span>

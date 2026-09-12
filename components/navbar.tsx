@@ -3,12 +3,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { GlowButton } from "./glow-button";
 
 const links = [
-  { href: "/challenges", label: "Challenges" },
-  { href: "/scoreboard", label: "Scoreboard" },
-  { href: "/docs", label: "Field Manual" },
+  { href: "/hack-check", label: "Hack Check" },
+  { href: "/hack-confirmation", label: "Hack Confirmation" },
+  { href: "/hack-done", label: "Hack Done" },
+  { href: "/voucher-confirmation", label: "Voucher Confirmation" },
 ];
 
 export function Navbar() {
@@ -16,8 +16,8 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3.5 sm:px-6">
+    <>
+      <nav className="flex flex-1 items-center justify-between py-3.5">
         <Link href="/" className="group flex items-center gap-2.5">
           <span className="grid size-8 place-items-center rounded border border-primary/40 bg-primary/10 font-mono text-primary transition-colors group-hover:box-glow">
             &gt;_
@@ -47,12 +47,6 @@ export function Navbar() {
           })}
         </div>
 
-        <div className="hidden md:block">
-          <GlowButton href="/challenges" variant="outline" className="!py-2">
-            Launch console
-          </GlowButton>
-        </div>
-
         <button
           type="button"
           onClick={() => setOpen((o) => !o)}
@@ -67,7 +61,7 @@ export function Navbar() {
       </nav>
 
       {open && (
-        <div className="border-t border-border bg-surface/95 px-4 py-3 md:hidden">
+        <div className="absolute inset-x-0 top-full border-t border-border bg-surface/95 px-4 py-3 md:hidden">
           {links.map((l) => (
             <Link
               key={l.href}
@@ -78,8 +72,15 @@ export function Navbar() {
               {l.label}
             </Link>
           ))}
+          <Link
+            href="/admin"
+            onClick={() => setOpen(false)}
+            className="block rounded px-3 py-2.5 font-mono text-sm text-muted hover:bg-surface-2 hover:text-primary"
+          >
+            Admin
+          </Link>
         </div>
       )}
-    </header>
+    </>
   );
 }

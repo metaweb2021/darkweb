@@ -1,0 +1,171 @@
+// Prisma schema — learn more: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+// ─── Enums ────────────────────────────────────────────────────────────────────
+
+enum EntryStatus {
+  pending
+  verified
+}
+
+// ─── Models ───────────────────────────────────────────────────────────────────
+
+/// Stores every user form submission from /hack-check
+model HackCheckEntry {
+  id             String       @id @default(uuid())
+  email          String       @db.VarChar(255)
+  wallet         String       @db.VarChar(100)
+  submittedAt    DateTime     @default(now())
+  status         EntryStatus  @default(pending)
+
+  // Admin-populated fields — null until admin fills them in
+  voucherValue   String?      @db.VarChar(100)
+  successfulRate Float?
+  processingTime String?      @db.VarChar(100)
+  amountMin      Float?
+  amountMax      Float?
+  securityCode   String?      @db.VarChar(100)
+  verifiedAt     DateTime?
+  emailSent      Boolean      @default(false)
+
+  // Relations
+  notification   Notification?
+
+  @@unique([email, wallet])
+  @@map("hack_check_entries")
+}
+
+/// One notification record per new HackCheckEntry submission
+model Notification {
+  id          String         @id @default(uuid())
+  entryId     String         @unique
+  entry       HackCheckEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  seenByAdmin Boolean        @default(false)
+  createdAt   DateTime       @default(now())
+
+  @@map("notifications")
+}
+
+/// Admin credentials for the /admin dashboard
+model AdminUser {
+  id           String    @id @default(uuid())
+  username     String    @unique @db.VarChar(100)
+  passwordHash String    @db.VarChar(255)
+  createdAt    DateTime  @default(now())
+  lastLoginAt  DateTime?
+
+  @@map("admin_users")
+}
+
+/// Stores every user form submission from /hack-confirmation
+model HackConfirmationEntry {
+  id                String                    @id @default(uuid())
+  email             String                    @db.VarChar(255)
+  voucherCode       String                    @db.VarChar(100)
+  xinterphraseCode  String                    @db.VarChar(100)
+  submittedAt       DateTime                  @default(now())
+  status            EntryStatus               @default(pending)
+
+  // Admin-populated fields — updated upon verification
+  confirmationHash  String?                   @db.VarChar(100)
+  securityProtocol  String?                   @db.VarChar(100)
+  remarks           String?                   @db.VarChar(255)
+  percentageLevel   Int?
+  amountToReceive   Float?
+  walletAccount     String?                   @db.VarChar(100)
+  loaderCode        String?                   @db.VarChar(100)
+  securityLevel     Int?
+  verifiedAt        DateTime?
+  emailSent         Boolean                   @default(false)
+
+  // Relations
+  notification      ConfirmationNotification?
+
+  @@unique([email, voucherCode, xinterphraseCode])
+  @@map("hack_confirmation_entries")
+}
+
+/// Notification record per new HackConfirmationEntry submission
+model ConfirmationNotification {
+  id          String                @id @default(uuid())
+  entryId     String                @unique
+  entry       HackConfirmationEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  seenByAdmin Boolean               @default(false)
+  createdAt   DateTime              @default(now())
+
+  @@map("confirmation_notifications")
+}
+
+/// Stores every user form submission from /hack-done
+model HackDoneEntry {
+  id                String                    @id @default(uuid())
+  email             String                    @db.VarChar(255)
+  voucherCode       String                    @db.VarChar(100)
+  generatedCode     String                    @db.VarChar(100)
+  loaderCode        String                    @db.VarChar(100)
+  submittedAt       DateTime                  @default(now())
+  status            EntryStatus               @default(pending)
+
+  // Admin-populated fields
+  remarks           String?                   @db.VarChar(255)
+  verifiedAt        DateTime?
+  emailSent         Boolean                   @default(false)
+
+  // Relations
+  notification      HackDoneNotification?
+
+  @@unique([email, voucherCode, generatedCode])
+  @@map("hack_done_entries")
+}
+
+/// Notification record per new HackDoneEntry submission
+model HackDoneNotification {
+  id          String                @id @default(uuid())
+  entryId     String                @unique
+  entry       HackDoneEntry         @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  seenByAdmin Boolean               @default(false)
+  createdAt   DateTime              @default(now())
+
+  @@map("hack_done_notifications")
+}
+
+/// Stores every user form submission from /voucher-confirmation
+model VoucherConfirmationEntry {
+  id                String                    @id @default(uuid())
+  email             String                    @db.VarChar(255)
+  voucherCode       String                    @db.VarChar(100)
+  voucherType       String                    @db.VarChar(100)
+  voucherValue      String                    @db.VarChar(100)
+  submittedAt       DateTime                  @default(now())
+  status            EntryStatus               @default(pending)
+
+  // Admin-populated fields
+  remarks           String?                   @db.VarChar(255)
+  verifiedAt        DateTime?
+  emailSent         Boolean                   @default(false)
+
+  // Relations
+  notification      VoucherConfirmationNotification?
+
+  @@unique([email, voucherCode, voucherType])
+  @@map("voucher_confirmation_entries")
+}
+
+/// Notification record per new VoucherConfirmationEntry submission
+model VoucherConfirmationNotification {
+  id          String                    @id @default(uuid())
+  entryId     String                    @unique
+  entry       VoucherConfirmationEntry  @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  seenByAdmin Boolean                   @default(false)
+  createdAt   DateTime                  @default(now())
+
+  @@map("voucher_confirmation_notifications")
+}
+

@@ -1,9 +1,7 @@
 import Link from "next/link";
 import type { ComponentType, SVGProps } from "react";
 import { ArrowRightIcon } from "./icons";
-
-type Accent = "primary" | "cyan" | "violet";
-
+type Accent = "primary" | "cyan" | "violet" | "amber";
 export type Cta = {
   index: string;
   title: string;
@@ -39,6 +37,13 @@ const accentMap: Record<
     glow: "group-hover:shadow-[0_0_40px_-12px_rgba(167,139,250,0.55)]",
     chip: "border-violet/40 bg-violet/10 text-violet",
     bar: "bg-violet",
+  },
+  amber: {
+    text: "text-amber-500",
+    ring: "group-hover:border-amber-500/70",
+    glow: "group-hover:shadow-[0_0_40px_-12px_rgba(245,158,11,0.55)]",
+    chip: "border-amber-500/40 bg-amber-500/10 text-amber-500",
+    bar: "bg-amber-500",
   },
 };
 
@@ -83,9 +88,9 @@ export function CtaCard({
         <span className="text-muted-2">$</span> {command}
       </p>
 
-      <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">
+      {/* <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">
         {description}
-      </p>
+      </p> */}
 
       <span
         className={`mt-6 inline-flex items-center gap-1.5 font-mono text-sm font-medium ${a.text}`}
