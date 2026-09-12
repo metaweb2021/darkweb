@@ -35,11 +35,10 @@ export function Navbar() {
               <Link
                 key={l.href}
                 href={l.href}
-                className={`rounded px-3 py-2 font-mono text-sm transition-colors ${
-                  active
+                className={`rounded px-3 py-2 font-mono text-sm transition-colors ${active
                     ? "text-primary"
                     : "text-muted hover:text-foreground"
-                }`}
+                  }`}
               >
                 {l.label}
               </Link>
@@ -72,13 +71,6 @@ export function Navbar() {
               {l.label}
             </Link>
           ))}
-          <Link
-            href="/admin"
-            onClick={() => setOpen(false)}
-            className="block rounded px-3 py-2.5 font-mono text-sm text-muted hover:bg-surface-2 hover:text-primary"
-          >
-            Admin
-          </Link>
         </div>
       )}
     </>
