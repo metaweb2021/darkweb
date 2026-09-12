@@ -4,14 +4,15 @@
  */
 import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
-import { PrismaMariaDb } from "@prisma/adapter-mariadb";
+import { Pool } from "pg";
+import { PrismaPg } from "@prisma/adapter-pg";
 
 // Prevent multiple connections in Next.js dev hot-reload
 const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
 
 function createPrismaClient(): PrismaClient {
-  const dbUrl = (process.env.DATABASE_URL || "").replace(/^mysql:\/\//, "mariadb://");
-  const adapter = new PrismaMariaDb(dbUrl);
+  const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+  const adapter = new PrismaPg(pool);
   return new PrismaClient({ adapter });
 }
 

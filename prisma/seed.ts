@@ -9,8 +9,8 @@ import { prisma } from "../lib/prisma";
 import bcrypt from "bcryptjs";
 
 async function main() {
-  const username = process.env.ADMIN_USERNAME ?? "admin";
-  const password = process.env.ADMIN_PASSWORD ?? "admin123";
+  const username = process.env.ADMIN_USERNAME ?? "webadmin";
+  const password = process.env.ADMIN_PASSWORD ?? "@webadmin123";
 
   const passwordHash = await bcrypt.hash(password, 12);
 
