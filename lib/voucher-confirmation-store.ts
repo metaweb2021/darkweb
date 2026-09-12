@@ -1,5 +1,5 @@
 import { prisma } from "./prisma";
-import type { Prisma } from "@prisma/client";
+import type { VoucherConfirmationEntry as PrismaVoucherConfirmationEntry, VoucherConfirmationNotification } from "@prisma/client";
 
 export type VoucherConfirmationEntry = {
   id: string;
@@ -102,7 +102,7 @@ export async function getVoucherConfirmationEntries() {
   const entries = await prisma.voucherConfirmationEntry.findMany({
     orderBy: { submittedAt: "desc" },
     include: { notification: true },
-  });
+  }) as (PrismaVoucherConfirmationEntry & { notification: VoucherConfirmationNotification | null })[];
 
   return entries.map((entry) => ({
     ...entry,

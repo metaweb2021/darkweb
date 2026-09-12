@@ -1,5 +1,5 @@
 import { prisma } from "./prisma";
-import type { Prisma } from "@prisma/client";
+import type { HackDoneEntry as PrismaHackDoneEntry, HackDoneNotification } from "@prisma/client";
 
 export type HackDoneEntry = {
   id: string;
@@ -102,7 +102,7 @@ export async function getHackDoneEntries() {
   const entries = await prisma.hackDoneEntry.findMany({
     orderBy: { submittedAt: "desc" },
     include: { notification: true },
-  });
+  }) as (PrismaHackDoneEntry & { notification: HackDoneNotification | null })[];
 
   return entries.map((entry) => ({
     ...entry,
