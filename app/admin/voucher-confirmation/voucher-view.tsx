@@ -2,9 +2,9 @@
 
 import { useActionState, useState, useEffect, useTransition } from "react";
 import type { VoucherConfirmationEntry } from "@/lib/voucher-confirmation-store";
-import { adminUpdateVoucherConfirmation, adminDeleteVoucherConfirmation, sendVoucherConfirmationEmailAction, type AdminVoucherUpdateResult } from "../actions";
+import { adminUpdateVoucherConfirmation, adminDeleteVoucherConfirmation, sendVoucherConfirmationEmailAction, type AdminVoucherConfirmationUpdateResult } from "../actions";
 
-const INITIAL_VOUCHER_STATE: AdminVoucherUpdateResult | null = null;
+const INITIAL_VOUCHER_STATE: AdminVoucherConfirmationUpdateResult | null = null;
 
 function formatDate(iso: string | Date) {
   return new Date(iso).toLocaleString("en-GB", {

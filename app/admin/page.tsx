@@ -46,8 +46,8 @@ export default async function AdminOverviewPage() {
       href: "/admin/hack-check",
       icon: <TerminalIcon className="size-5 text-primary" />,
       total: entries.length,
-      pending: entries.filter(e => e.status === "pending").length,
-      verified: entries.filter(e => e.status === "verified").length,
+      pending: entries.filter((e: any) => e.status === "pending").length,
+      verified: entries.filter((e: any) => e.status === "verified").length,
       color: "border-primary/20 hover:border-primary/50 text-primary",
       bg: "bg-primary/5"
     },
@@ -56,8 +56,8 @@ export default async function AdminOverviewPage() {
       href: "/admin/hack-confirmation",
       icon: <ShieldIcon className="size-5 text-cyan" />,
       total: confirmationEntries.length,
-      pending: confirmationEntries.filter(e => e.status === "pending").length,
-      verified: confirmationEntries.filter(e => e.status === "verified").length,
+      pending: confirmationEntries.filter((e: any) => e.status === "pending").length,
+      verified: confirmationEntries.filter((e: any) => e.status === "verified").length,
       color: "border-cyan/20 hover:border-cyan/50 text-cyan",
       bg: "bg-cyan/5"
     },
@@ -70,8 +70,8 @@ export default async function AdminOverviewPage() {
         </svg>
       ),
       total: hackDoneEntries.length,
-      pending: hackDoneEntries.filter(e => e.status === "pending").length,
-      verified: hackDoneEntries.filter(e => e.status === "verified").length,
+      pending: hackDoneEntries.filter((e: any) => e.status === "pending").length,
+      verified: hackDoneEntries.filter((e: any) => e.status === "verified").length,
       color: "border-amber-400/20 hover:border-amber-400/50 text-amber-400",
       bg: "bg-amber-400/5"
     },
@@ -84,8 +84,8 @@ export default async function AdminOverviewPage() {
         </svg>
       ),
       total: voucherEntries.length,
-      pending: voucherEntries.filter(e => e.status === "pending").length,
-      verified: voucherEntries.filter(e => e.status === "verified").length,
+      pending: voucherEntries.filter((e: any) => e.status === "pending").length,
+      verified: voucherEntries.filter((e: any) => e.status === "verified").length,
       color: "border-amber-500/20 hover:border-amber-500/50 text-amber-500",
       bg: "bg-amber-500/5"
     }

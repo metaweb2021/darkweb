@@ -5,7 +5,7 @@ const ADMIN_SESSION_COOKIE = "admin_session";
 const LOGIN_PATH = "/admin/login";
 const ADMIN_PATH = "/admin";
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Only guard /admin routes (but not /admin/login itself)
